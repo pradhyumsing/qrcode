@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            background-color:lightblue;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border:1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Generator</h1>
+  <div class="container">
+    <div class="form-group">
+    <form method="POST" action="{% url 'generate_qr_code' %}">
+        {% csrf_token %}
+        <label for="data">Data:</label>
+        <input type="text" name="data" required>
+        <button type="submit">Generate QR Code</button>
+    </form>
+    </div>
+    {% if qr_code_image %}
+        <h2>QR Code:</h2>
+        <img src="{{ qr_code_image.url }}" alt="QR Code">
+    {% endif %}
+  </div>
+</body>
+</html>
